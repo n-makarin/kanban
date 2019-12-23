@@ -1,6 +1,22 @@
 <template>
   <div :style="style" class="item">
+    <!-- title -->
     <div class="item__title">{{ title }}</div>
+
+    <!-- cards -->
+    <div class="item__card-list">
+      <card
+        v-for="card in cardList"
+        :key="card.id"
+        :id="card.id"
+        :title="card.title"
+        :description="card.description"
+        :order="card.order"
+        class="item__card"
+      />
+    </div>
+
+    <!-- add card -->
     <div class="item__add item-add" @click="add">
       <img class="item-add__icon" src="@/assets/images/icons/plus.svg" alt="add">
       <span class="item-add__text">{{ addCardText }}</span>
@@ -9,7 +25,13 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+import Card from '@/components/board/list/item/card.vue'
+
 export default {
+  components: {
+    Card
+  },
   props: {
     id: {
       type: Number,
@@ -27,16 +49,31 @@ export default {
   computed: {
     style () {
       return { order: this.order }
+    },
+    ...mapGetters({
+      rawCardList: 'board/detail/cardList'
+    }),
+    cardList () {
+      if (!this.cardListLoaded || !this.rawCardList) { return }
+      return this.rawCardList[this.id]
     }
   },
   data () {
     return {
-      addCardText: 'Добавить еще одну карточку'
+      addCardText: 'Добавить еще одну карточку',
+      cardListLoaded: false
     }
   },
   methods: {
+    ...mapActions({
+      getCardList: 'board/detail/getCardList'
+    }),
     add () {
     }
+  },
+  async mounted () {
+    await this.getCardList(this.id)
+    this.cardListLoaded = true
   }
 }
 </script>
