@@ -100,10 +100,9 @@ export default {
   }
   &-add {
     cursor: pointer;
-    opacity: 1;
-    transition: opacity .15s;
+    transition: color .15s;
     &:hover {
-      opacity: .7;
+      color: rgb(49, 49, 49);
     }
     &__icon {
       margin-right: 13px;
