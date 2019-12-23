@@ -4,6 +4,9 @@ Test task for 4px.ru company
 [📋 Task description](https://docs.google.com/document/d/18gflyWCGfJMPMcxwLlxmRCHOrIxz2xOKVL_apaRWHQ/edit)
 
 
+[🍨 Design](https://www.figma.com/file/INjVVWjRDXw4fmn0PFkaZW/Test-task-0.1?node-id=0%3A1)
+
+
 ## Project setup
 ```
 npm install
