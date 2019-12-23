@@ -1,6 +1,6 @@
 <template>
   <div :style="style" class="card">
-    <div class="card__title">{{ title }}</div>
+    <div :title="title" class="card__title">{{ abridgedTitle }}</div>
   </div>
 </template>
 
@@ -25,9 +25,23 @@ export default {
       default: 0
     }
   },
+  data () {
+    return {
+      maxTitleLength: 53
+    }
+  },
   computed: {
     style () {
       return { order: this.order }
+    },
+    abridgedTitle () {
+      const titleLength = this.title.length
+      const ellipsis = '...'
+      if (titleLength >= this.maxTitleLength) {
+        return this.title.slice(0, this.maxTitleLength) + ellipsis
+      } else {
+        return this.title
+      }
     }
   }
 }
@@ -46,6 +60,10 @@ export default {
   }
   &:last-child {
     margin-bottom: 0;
+  }
+  &__title {
+    max-height: 36px;
+    overflow: hidden;
   }
 }
 </style>
