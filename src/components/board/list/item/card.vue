@@ -55,11 +55,15 @@ export default {
   border-radius: 2px;
   color: $black;
   margin-bottom: 12px;
+  cursor: pointer;
   &:first-child {
     margin-top: 16px;
   }
   &:last-child {
     margin-bottom: 0;
+  }
+  &:hover {
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   }
   &__title {
     max-height: 36px;
