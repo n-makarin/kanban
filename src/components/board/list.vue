@@ -29,5 +29,6 @@ export default {
 <style scoped lang="scss">
 .list {
   display: flex;
+  align-items: flex-start;
 }
 </style>
