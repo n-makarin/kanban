@@ -33,3 +33,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.boards {
+  padding: 36px 24px;
+}
+</style>
