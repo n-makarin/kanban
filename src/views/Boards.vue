@@ -1,16 +1,18 @@
 <template>
-  <div class="boards">
-    boards
+  <div v-if="dataLoaded" class="boards">
+    <board-list :data="boardList" />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import BoardList from '@/components/board/list'
 
 export default {
   name: 'home',
   components: {
+    BoardList
   },
   computed: {
     ...mapGetters({
