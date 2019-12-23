@@ -1,7 +1,7 @@
 <template>
-  <div :style="style" class="card">
+  <router-link :to="pathDetail" :style="style" class="card">
     <div :title="title" class="card__title">{{ abridgedTitle }}</div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -31,6 +31,9 @@ export default {
     }
   },
   computed: {
+    pathDetail () {
+      return `/card/${this.id}`
+    },
     style () {
       return { order: this.order }
     },
@@ -49,6 +52,7 @@ export default {
 
 <style scoped lang="scss">
 .card {
+  display: block;
   padding: 8px 12px;
   background: white;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
