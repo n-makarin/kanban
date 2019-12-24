@@ -52,7 +52,10 @@ export default {
   computed: {
     ...mapGetters({
       data: 'card/detail/data'
-    })
+    }),
+    boardId () {
+      return this.$route.query.board_id
+    }
   },
   methods: {
     ...mapActions({
@@ -63,13 +66,13 @@ export default {
       this.$router.go(-1)
     },
     async save () {
-      const isChanged = await this.changeCardInfo({
+      await this.changeCardInfo({
         id: this.data.id,
         title: this.localTitle,
         description: this.localDescription,
-        order: this.data.order
+        order: this.data.order,
+        board_id: this.boardId
       })
-      if (!isChanged) { return }
       this.redirectToPrevPage()
     },
     /**
