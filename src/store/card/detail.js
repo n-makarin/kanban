@@ -17,9 +17,29 @@ export default {
      * @returns Promise<void>
      */
     async get ({ commit }, id) {
-      const result = await myJsonServer.get('cards', `/${id}`)
+      // TODO: try to get from vuex first
+      const result = await myJsonServer.makeRequest({
+        method: 'GET',
+        path: 'cards',
+        query: `/${id}`
+      })
       if (!result) { return }
       commit('SET', result)
+    },
+    /**
+     *
+     * @param {object} card
+     */
+    async changeInfo ({ commit, dispatch }, card) {
+      const result = await myJsonServer.makeRequest({
+        method: 'PATCH',
+        path: 'cards',
+        query: `/${card.id}`,
+        data: card
+      })
+      dispatch('board/detail/changeCardInfo', result, { root: true })
+      if (!result) { return false }
+      return true
     }
   },
   getters: {
