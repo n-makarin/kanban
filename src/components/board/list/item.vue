@@ -6,8 +6,8 @@
     <!-- cards -->
     <div class="item__card-list">
       <card
-        v-for="card in cardList"
-        :key="card.id"
+        v-for="(card, index) in cardList"
+        :key="index"
         :id="card.id"
         :title="card.title"
         :description="card.description"
@@ -90,7 +90,7 @@ export default {
   methods: {
     ...mapActions({
       getCardList: 'board/detail/getCardList',
-      createCard: 'card/list/create'
+      createCard: 'card/detail/create'
     }),
     openCreateItemForm () {
       this.createItemFormVisible = true
@@ -98,8 +98,14 @@ export default {
     closeCreateItemForm () {
       this.createItemFormVisible = false
     },
-    add () {
-
+    async add () {
+      await this.createCard({
+        title: this.newCardTitle,
+        boardId: this.id,
+        order: this.cardList.length + 1
+      })
+      this.closeCreateItemForm()
+      this.newCardTitle = ''
     }
   },
   async mounted () {
@@ -144,9 +150,6 @@ export default {
       &:hover {
         background: $gray-lighter;
       }
-    }
-    &__form {
-
     }
     &__title {
       box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
