@@ -12,6 +12,7 @@
         :title="card.title"
         :description="card.description"
         :order="card.order"
+        :board-id="id"
         class="item__card"
       />
     </div>
