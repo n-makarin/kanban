@@ -1,6 +1,6 @@
 <template>
   <div class="modal-default" v-if="visible">
-    <div class="modal-default__content">
+    <div class="modal-default__content" :style="style">
       <slot />
     </div>
     <div class="modal-default__overlay" @click="close"></div>
@@ -13,11 +13,22 @@ export default {
     visible: {
       type: Boolean,
       default: false
+    },
+    borderRadius: {
+      type: String,
+      default: '0px'
     }
   },
   methods: {
     close () {
       this.$emit('close')
+    }
+  },
+  computed: {
+    style () {
+      return {
+        borderRadius: this.borderRadius
+      }
     }
   }
 }
@@ -38,8 +49,6 @@ export default {
     position: absolute;
     margin: 0 auto;
     max-height: 100%;
-    padding: 20px;
-    border-radius: 3px;
     background: white;
     z-index: $z-index_modal-content;
     overflow-y: auto;
