@@ -19,7 +19,11 @@ export default {
      * @returns Promise<void>
      */
     async getCardList ({ commit }, boardId) {
-      const result = await myJsonServer.get('cards', `?board_id=${boardId}`)
+      const result = await myJsonServer.makeRequest({
+        method: 'GET',
+        path: 'cards',
+        query: `?board_id=${boardId}`
+      })
       if (!result) { return }
       commit('SET', { cardList: result, boardId })
     }

@@ -17,7 +17,11 @@ export default {
      * @returns Promise<void>
      */
     async get ({ commit }, query) {
-      const result = await myJsonServer.get('boards', query)
+      const result = await myJsonServer.makeRequest({
+        method: 'GET',
+        path: 'boards',
+        query
+      })
       if (!result) { return }
       commit('SET', result)
     }
