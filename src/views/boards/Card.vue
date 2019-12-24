@@ -8,7 +8,7 @@
       v-if="dataLoaded"
     >
       <div class="card-modal__content">
-        <form class="card-modal__form" action="POST">
+        <form @submit.prevent="save" class="card-modal__form" action="POST">
           <textarea
             name="title"
             v-model="data.title"
@@ -21,7 +21,6 @@
             class="textarea card-modal__description"
           />
           <button
-            @submit.prevent="save"
             class="card-modal__button-save"
           >
             Сохранить
@@ -55,13 +54,16 @@ export default {
   },
   methods: {
     ...mapActions({
-      getData: 'card/detail/get'
+      getData: 'card/detail/get',
+      changeCardInfo: 'card/detail/changeInfo'
     }),
     redirectToPrevPage () {
       this.$router.go(-1)
     },
-    save () {
-
+    async save () {
+      const isChanged = await this.changeCardInfo(this.data)
+      if (!isChanged) { return }
+      this.redirectToPrevPage()
     }
   },
   async mounted () {
