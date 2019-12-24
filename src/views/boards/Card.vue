@@ -105,7 +105,6 @@ export default {
       border-radius: 5px;
       .textarea {
         display: block;
-        width: 100%;
         border-radius: 2px;
         resize: none;
         overflow-y: auto;
@@ -123,13 +122,14 @@ export default {
       }
     }
     &__title {
-      margin-right: 30px;
+      width: calc(100% - 30px);
       margin-bottom: 12px;
       font-weight: bold;
       font-size: 24px;
       padding: 5px;
     }
     &__description {
+      width: 100%;
       padding: 12px;
       min-height: 95px;
       font-size: 15px;
