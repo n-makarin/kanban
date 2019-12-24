@@ -12,6 +12,10 @@ export default {
       type: Number,
       default: 0
     },
+    boardId: {
+      type: Number,
+      default: 0
+    },
     title: {
       type: String,
       default: ''
@@ -32,7 +36,7 @@ export default {
   },
   computed: {
     pathDetail () {
-      return `/card/${this.id}`
+      return `/card/${this.id}?board_id=${this.boardId}`
     },
     style () {
       return { order: this.order }
