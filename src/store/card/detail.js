@@ -27,6 +27,24 @@ export default {
       commit('SET', result)
     },
     /**
+     * Create new card and add it to store
+     * @returns Promise<void>
+     */
+    async create ({ dispatch, commit }, { title, boardId, order }) {
+      const result = await myJsonServer.makeRequest({
+        method: 'POST',
+        path: 'cards',
+        data: {
+          title,
+          description: '',
+          order,
+          board_id: boardId
+        }
+      })
+      if (!result) { return }
+      dispatch('board/detail/addCard', result, { root: true })
+    },
+    /**
      * Get card by id from vuex store
      * @param {number} id  Card id
      * @returns null | object
