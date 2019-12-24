@@ -10,6 +10,16 @@ export default {
       const localCardList = store.cardList
       localCardList[boardId] = cardList
       store.cardList = localCardList
+    },
+    CHANE_CARD_INFO (store, card) {
+      const localCardList = Object.assign({}, store.cardList)
+      const boardOfCard = localCardList[card.board_id]
+      for (let i = 0; i < boardOfCard.length; i++) {
+        if (boardOfCard[i].id !== card.id) { continue }
+        boardOfCard[i] = card
+      }
+      localCardList[card.board_id] = boardOfCard
+      store.cardList = localCardList
     }
   },
   actions: {
@@ -26,6 +36,9 @@ export default {
       })
       if (!result) { return }
       commit('SET', { cardList: result, boardId })
+    },
+    changeCardInfo ({ commit }, card) {
+      commit('CHANE_CARD_INFO', card)
     }
   },
   getters: {
