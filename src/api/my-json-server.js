@@ -11,12 +11,13 @@ const myJsonServer = {
    * @param {string} query Query params
    * @returns any
    */
-  async makeRequest ({ method = '', path = '', query = '' }) {
+  async makeRequest ({ method = '', path = '', query = '', data }) {
     let rawData = null
     const url = `${endpoint}${path}${query}`
     await axios({
       method,
-      url
+      url,
+      data
     })
       .catch((error) => {
         console.log(`Can't get data by url: ${url}. Error: ${error}`)
