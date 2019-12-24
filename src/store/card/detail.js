@@ -3,7 +3,7 @@ import myJsonServer from '@/api/my-json-server'
 export default {
   namespaced: true,
   state: {
-    data: []
+    data: null
   },
   mutations: {
     SET (store, data) {
@@ -16,15 +16,31 @@ export default {
      * @param id {number} Card id
      * @returns Promise<void>
      */
-    async get ({ commit }, id) {
-      // TODO: try to get from vuex first
-      const result = await myJsonServer.makeRequest({
+    async get ({ dispatch, commit }, id) {
+      const data = await dispatch('getFromStore', id)
+      const result = data || await myJsonServer.makeRequest({
         method: 'GET',
         path: 'cards',
         query: `/${id}`
       })
       if (!result) { return }
       commit('SET', result)
+    },
+    /**
+     * Get card by id from vuex store
+     * @param {number} id  Card id
+     * @returns null | object
+     */
+    getFromStore ({ rootGetters }, id) {
+      const cardList = Object.values(rootGetters['board/detail/cardList'])
+      let data = null
+      for (let i = 0; i < cardList.length; i++) {
+        cardList[i].forEach(element => {
+          if (Number(element.id) !== Number(id)) { return }
+          data = element
+        })
+      }
+      return data
     },
     /**
      *
