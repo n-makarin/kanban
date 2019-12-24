@@ -11,12 +11,12 @@
         <form @submit.prevent="save" class="card-modal__form" action="POST">
           <textarea
             name="title"
-            v-model="data.title"
+            v-model="localTitle"
             class="textarea card-modal__title"
           />
           <textarea
             name="description"
-            v-model="data.description"
+            v-model="localDescription"
             placeholder="Описание"
             class="textarea card-modal__description"
           />
@@ -44,7 +44,9 @@ export default {
   },
   data () {
     return {
-      dataLoaded: false
+      dataLoaded: false,
+      localTitle: '',
+      localDescription: ''
     }
   },
   computed: {
@@ -61,13 +63,26 @@ export default {
       this.$router.go(-1)
     },
     async save () {
-      const isChanged = await this.changeCardInfo(this.data)
+      const isChanged = await this.changeCardInfo({
+        id: this.data.id,
+        title: this.localTitle,
+        description: this.localDescription,
+        order: this.data.order
+      })
       if (!isChanged) { return }
       this.redirectToPrevPage()
+    },
+    /**
+     * @returns void
+     */
+    setLocalData () {
+      this.localTitle = this.data.title
+      this.localDescription = this.data.description
     }
   },
   async mounted () {
     await this.getData(this.$route.params.id)
+    this.setLocalData()
     this.dataLoaded = true
   }
 }
