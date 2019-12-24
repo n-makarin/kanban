@@ -71,7 +71,7 @@ export default {
         query: `/${card.id}`,
         data: card
       })
-      dispatch('board/detail/changeCardInfo', result, { root: true })
+      dispatch('board/detail/changeCardInfo', card, { root: true })
       if (!result) { return false }
       return true
     }
