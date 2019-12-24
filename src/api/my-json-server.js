@@ -11,11 +11,11 @@ const myJsonServer = {
    * @param {string} query Query params
    * @returns any
    */
-  async get (path = '', query = '') {
+  async makeRequest ({ method = '', path = '', query = '' }) {
     let rawData = null
     const url = `${endpoint}${path}${query}`
     await axios({
-      method: 'GET',
+      method,
       url
     })
       .catch((error) => {
