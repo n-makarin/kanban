@@ -20,6 +20,13 @@ export default {
       }
       localCardList[card.board_id] = boardOfCard
       store.cardList = localCardList
+    },
+    ADD_CARD (store, card) {
+      const localCardList = Object.assign({}, store.cardList)
+      const boardOfCard = localCardList[card.board_id]
+      boardOfCard.push(card)
+      localCardList[card.board_id] = boardOfCard
+      store.cardList = localCardList
     }
   },
   actions: {
@@ -39,6 +46,9 @@ export default {
     },
     changeCardInfo ({ commit }, card) {
       commit('CHANE_CARD_INFO', card)
+    },
+    addCard ({ commit }, card) {
+      commit('ADD_CARD', card)
     }
   },
   getters: {
